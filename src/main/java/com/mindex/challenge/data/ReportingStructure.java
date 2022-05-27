@@ -3,7 +3,7 @@ package com.mindex.challenge.data;
 public class ReportingStructure {
 	
 	private Employee employee;
-	private long numberOfReports;
+	private int numberOfReports;
 	
 	public Employee getEmployee() {
 		return employee;
