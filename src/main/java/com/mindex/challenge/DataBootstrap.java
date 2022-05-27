@@ -1,7 +1,9 @@
 package com.mindex.challenge;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mindex.challenge.dao.CompensationRepository;
 import com.mindex.challenge.dao.EmployeeRepository;
+import com.mindex.challenge.data.Compensation;
 import com.mindex.challenge.data.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -13,9 +15,13 @@ import java.io.InputStream;
 @Component
 public class DataBootstrap {
     private static final String DATASTORE_LOCATION = "/static/employee_database.json";
+    private static final String COMP_DATASTORE_LOCATION = "/static/compensation_database.json";
 
     @Autowired
     private EmployeeRepository employeeRepository;
+    
+    @Autowired
+    private CompensationRepository compRepo;
 
     @Autowired
     private ObjectMapper objectMapper;
@@ -24,16 +30,30 @@ public class DataBootstrap {
     public void init() {
         InputStream inputStream = this.getClass().getResourceAsStream(DATASTORE_LOCATION);
 
+        InputStream comp_inputStream = this.getClass().getResourceAsStream(COMP_DATASTORE_LOCATION);
+
+        
         Employee[] employees = null;
+        Compensation[] compensation = null;
 
         try {
             employees = objectMapper.readValue(inputStream, Employee[].class);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+        
+        try {
+        	compensation = objectMapper.readValue(comp_inputStream, Compensation[].class);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
         for (Employee employee : employees) {
             employeeRepository.insert(employee);
+        }
+        
+        for(Compensation comp : compensation) {
+        	compRepo.insert(comp);
         }
     }
 }
