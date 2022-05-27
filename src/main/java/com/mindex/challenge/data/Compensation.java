@@ -7,7 +7,7 @@ public class Compensation {
 	//employee, salary, and effectiveDate
 	private Employee employee;
 	private Long salary;
-	private Date effectiveDate;
+	private String effectiveDate;
 	public Employee getEmployee() {
 		return employee;
 	}
@@ -20,10 +20,10 @@ public class Compensation {
 	public void setSalary(Long salary) {
 		this.salary = salary;
 	}
-	public Date getEffectiveDate() {
+	public String getEffectiveDate() {
 		return effectiveDate;
 	}
-	public void setEffectiveDate(Date effectiveDate) {
+	public void setEffectiveDate(String effectiveDate) {
 		this.effectiveDate = effectiveDate;
 	}
 	
