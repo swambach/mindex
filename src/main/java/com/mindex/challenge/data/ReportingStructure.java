@@ -14,7 +14,7 @@ public class ReportingStructure {
 	public long getNumberOfReports() {
 		return numberOfReports;
 	}
-	public void setNumberOfReports(long numberOfReports) {
+	public void setNumberOfReports(int numberOfReports) {
 		this.numberOfReports = numberOfReports;
 	}
 	
