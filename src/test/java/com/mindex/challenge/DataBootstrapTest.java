@@ -1,11 +1,14 @@
 package com.mindex.challenge;
 
+import com.mindex.challenge.controller.EmployeeController;
 import com.mindex.challenge.dao.CompensationRepository;
 import com.mindex.challenge.dao.EmployeeRepository;
 import com.mindex.challenge.data.Compensation;
 import com.mindex.challenge.data.Employee;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -18,6 +21,8 @@ import static org.junit.Assert.assertTrue;
 @SpringBootTest
 public class DataBootstrapTest {
 
+	private static final Logger LOG = LoggerFactory.getLogger(DataBootstrapTest.class);
+	
     @Autowired
     private EmployeeRepository employeeRepository;
     @Autowired
@@ -39,8 +44,24 @@ public class DataBootstrapTest {
     	
     	Compensation compensation = compRepo.findByEmployee(emp);
     	assertNotNull(compensation);
-    	assertEquals(emp, compensation.getEmployee());
+    	assertTrue(assertAreEqual(emp, compensation.getEmployee()));
     	assertTrue(120 == compensation.getSalary());
     	assertEquals("05/27/2022", compensation.getEffectiveDate());
+    }
+    
+    private boolean assertAreEqual(Employee expected, Employee actual) {
+    	try {
+	    	assertEquals(expected.getFirstName(), actual.getFirstName());
+	    	assertEquals(expected.getLastName(), actual.getLastName());
+	    	assertEquals(expected.getDepartment(), actual.getDepartment());
+	    	//assertEquals(expected.getDirectReports(), actual.getDirectReports());
+	    	assertEquals(expected.getEmployeeId(), actual.getEmployeeId());
+	    	assertEquals(expected.getPosition(), actual.getPosition());
+    	}
+    	catch(AssertionError e) {
+    		LOG.debug(e.toString());
+    		return false;
+    	}
+    	return true;
     }
 }

@@ -59,7 +59,7 @@ public class EmployeeController {
     	return compService.read(id);
     }
     
-    @PostMapping("employee/compensation/")
+    @PostMapping("employee/compensation")
     public Compensation create(@RequestBody Compensation compensation) {
     	LOG.debug("Received compensation create request for [{}]", compensation);
     	

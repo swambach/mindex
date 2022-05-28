@@ -24,7 +24,7 @@ public class CompensationServiceImpl implements CompensationService {
 
 	@Override
 	public Compensation create(Compensation compensation) {
-		LOG.debug("creating compensation data for comp [{}]", compensation);
+		LOG.debug("creating compensation data for comp with employee id [{}]", compensation.getEmployee().getEmployeeId());
 
 		compRepo.insert(compensation);
 		return compensation;
